@@ -1,0 +1,6 @@
+node_modules/*
+.eslintcache
+.firebase/
+.firebaserc
+build/
+firebase.json
