@@ -2,12 +2,38 @@
     background-image: url('../../Global-Componets/background-blue-white.jpg');
     background-repeat: no-repeat;
     background-position: right top;
-    background-attachment: fixed;
-    
+    background-attachment: fixed;  
 }
+
 .headingh1{
     height: 500px;
     width: 800px;
     text-align: center;
     padding-top: 200px;
+}
+
+.message{
+    border: solid;
+    border-width: 1px;
+    width: 320px;
+    margin-left: 30%;
+    text-align: center;
+    padding-top: 5px;
+    font-weight: lighter;
+    border-radius: .5rem;
+    font-size: 15px;
+    height: 30px;
+    background-color: rgb(237, 246, 255);
+    
+}
+.ComleteNow{
+    color: blue;
+    text-decoration: underline;
+}
+.ComleteNow:hover{
+    cursor: pointer;
+}
+.labelText{
+    
+    
 }

@@ -2,6 +2,7 @@ import { Redirect, Route, Switch } from "react-router-dom";
 import LoginPage from "./Components/Pages/LoginPage/LoginPage";
 import NavBar from "./Components/NavBar/NavBar";
 import Welcome from "./Components/Pages/WelcomePage/Welcome";
+import UserDetailsUpdate from "./Components/Pages/UserDetailsUpdate/UserDetailsUpdate";
 
 function App() {
   return (
@@ -14,6 +15,9 @@ function App() {
 
       <Route path='/welcome'>
       <Welcome />
+      </Route>
+      <Route path={'/user'}>
+        <UserDetailsUpdate />
       </Route>
 
       <Route path='*'>
