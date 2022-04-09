@@ -3,26 +3,29 @@ import LoginPage from "./Components/Pages/LoginPage/LoginPage";
 import NavBar from "./Components/NavBar/NavBar";
 import Welcome from "./Components/Pages/WelcomePage/Welcome";
 import UserDetailsUpdate from "./Components/Pages/UserDetailsUpdate/UserDetailsUpdate";
+import PasswordReset from "./Components/Pages/PasswordReset/PasswordReset";
 
 function App() {
   return (
-    <div >
+    <div>
       <NavBar />
       <Switch>
+        <LoginPage path="/auth" />
 
-
-      <LoginPage path='/auth' />
-
-      <Route path='/welcome'>
-      <Welcome />
-      </Route>
-      <Route path={'/user'}>
-        <UserDetailsUpdate />
-      </Route>
-
-      <Route path='*'>
-          <Redirect to='/auth' />
+        <Route path="/welcome">
+          <Welcome />
         </Route>
+        <Route path={"/user"}>
+          <UserDetailsUpdate />
+        </Route>
+        <Route path="/reset">
+          <PasswordReset />
+        </Route>
+
+        <Route path="*">
+          <Redirect to="/auth" />
+        </Route>
+
       </Switch>
     </div>
   );
