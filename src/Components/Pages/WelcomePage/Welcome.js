@@ -39,7 +39,9 @@ const Welcome = () =>{
         }
     }
 
-useEffect(autoVerifyEmailCheck,[])
+useEffect(()=>{
+    autoVerifyEmailCheck();
+},[])
 
 
     const verifyHandler = async() =>{
@@ -63,6 +65,7 @@ useEffect(autoVerifyEmailCheck,[])
                 const data = await res.json();
                 console.log(data);
                 console.log('Send success');
+                alert('Verification Mail sent!');
             }
 
         }catch(err){
@@ -79,9 +82,9 @@ useEffect(autoVerifyEmailCheck,[])
             <div className="message">
                 <label className="labelText" > Your Profile is Incomplete. <Link to='/user' className="ComleteNow" >Complete Now</Link> </label>
             </div>
-            <di>
-                {!checkVerified && <button onClick={verifyHandler} > Verify Email</button>}
-            </di>
+            <div className="verifyDiv" >
+                {!checkVerified && <button onClick={verifyHandler} className="verifyBtn" > Verify Email</button>}
+            </div>
         </div>
     </div>)
 }
