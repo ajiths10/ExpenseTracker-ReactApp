@@ -43,9 +43,10 @@ const LoginPage = () =>{
                       )
                       if(response.ok){
                         const data = await response.json();
-                        console.log('User has successfully Loged in.');
+                        console.log(data);
                         localStorage.setItem('JWTTOKEN',data.idToken);
                         localStorage.setItem('userID',data.localId);
+                        localStorage.setItem('Email',data.email);
                         emailRef.current.value='';
                         passwordOneRef.current.value='';
                         history.replace('/welcome');

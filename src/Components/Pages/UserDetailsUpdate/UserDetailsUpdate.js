@@ -1,9 +1,44 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect} from "react";
 import "./UserDetailsUpdate.css";
 
 const UserDetailsUpdate = () => {
     const nameRef = useRef();
     const photoUrlRef = useRef();
+
+    const autogetData=async()=>{
+        const token = localStorage.getItem('JWTTOKEN');
+        try{
+            const res = await fetch('https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyCrNT0jOFIUrCoslzyrlcZDJIUqzYGvDLc',
+            {
+                method: "POST",
+                body: JSON.stringify({
+                    idToken: token,
+                  returnSecureToken: true,
+                }),
+                headers: {
+                  "Content-Type": "application/json",
+                },
+              }
+            )
+            if(res.ok){
+                const data = await res.json();
+                data.users.forEach(element => {
+                    console.log(data.users);
+                    nameRef.current.value=element.displayName;
+                    photoUrlRef.current.value=element.photoUrl;
+                });
+            }else{
+                const data = await res.json();
+                console.log(data)
+            }
+
+        }catch(err){
+            console.log('Auto fetch error!');
+        }
+    }
+
+    useEffect(autogetData,[]);
+
 
     const updateButtonHandler = async(event) =>{
         event.preventDefault();
@@ -29,11 +64,12 @@ const UserDetailsUpdate = () => {
             )
             if(res.ok){
                 const data = await res.json();
-                console.log('Updated success');
+                console.log(data);
                 nameRef.current.value='';
                 photoUrlRef.current.value='';
             }else{
                 const data = await res.json();
+                console.log(data)
                 alert(data.error.message)
             }
         }catch(err){
@@ -43,30 +79,32 @@ const UserDetailsUpdate = () => {
 
   return (
   <div className="userDetailsUpdateDiv">
-    <form>
-        <div>
-            <div>
+      <div className="userDetailsdiv">
+    <form className="userDetailsForm" >
+        <div className="userDetailsFormdiv" >
+            <div className="headingdiv">
                 Contact details
             </div>
-            <div>
-                <div>
+            <div className="contantdiv">
+                <div className="contantdivfield">
                     <label>Full Name:</label>
                 </div>
-                <div>
-                    <input type='text' ref={nameRef} />
+                <div className="contantdivfield">
+                    <input type='text'  className="contantinputfield" ref={nameRef} />
                 </div>
-                <div>
+                <div className="contantdivfield">
                     <label>Profile Photo URL</label>
                 </div>
-                <div>
-                    <input type='text' ref={photoUrlRef} />
+                <div className="contantdivfield">
+                    <input type='text' className="contantinputfield" ref={photoUrlRef} />
                 </div>
-                <div>
-                    <button onClick={updateButtonHandler} > Update</button>
+                <div className="contantdivfield">
+                    <button onClick={updateButtonHandler} className="contantBTNfield"> Update</button>
                 </div>
             </div>
         </div> 
-    </form>    
+    </form>  
+    </div>  
   </div>
   );
 };
