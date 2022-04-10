@@ -4,27 +4,38 @@ import NavBar from "./Components/NavBar/NavBar";
 import Welcome from "./Components/Pages/WelcomePage/Welcome";
 import UserDetailsUpdate from "./Components/Pages/UserDetailsUpdate/UserDetailsUpdate";
 import PasswordReset from "./Components/Pages/PasswordReset/PasswordReset";
+import Expenses from "./Components/Pages/Expenses/Expenses";
+import Context from "./Context/Context";
+import { useContext } from "react";
 
 function App() {
+  const CTX = useContext(Context);
+
   return (
     <div>
       <NavBar />
       <Switch>
-        <LoginPage path="/auth" />
+        {!CTX.isLogin &&<Route path="/auth" exact>
+         <LoginPage />
+        </Route>}
+        
 
-        <Route path="/welcome">
-          <Welcome />
-        </Route>
-        <Route path={"/user"}>
-          <UserDetailsUpdate />
-        </Route>
-        <Route path="/reset">
-          <PasswordReset />
-        </Route>
+        {CTX.isLogin && <Route path="/welcome" exact>
+           <Welcome />
+        </Route>}
 
-        <Route path="*">
-          <Redirect to="/auth" />
-        </Route>
+         {CTX.isLogin && <Route path="/user" exact>
+         <UserDetailsUpdate />  
+        </Route>}
+
+        {!CTX.isLogin && <Route path="/reset" exact>
+           <PasswordReset />
+        </Route>}
+
+        {CTX.isLogin && <Route path="/expenses" exact>
+           <Expenses />
+        </Route>}
+
 
       </Switch>
     </div>

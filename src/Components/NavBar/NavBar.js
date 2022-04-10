@@ -1,14 +1,18 @@
+import { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import Context from '../../Context/Context';
 import './NavBar.css';
 
 const NavBar = ()=>{
 const history = useHistory();
+const CTX = useContext(Context);
 
     const logoutHandler = (event)=>{
         event.preventDefault();
         localStorage.setItem('JWTTOKEN','');
         localStorage.setItem('userID','');
         localStorage.setItem('Email','');
+        CTX.login(false);
         history.replace('/auth');
     }
 

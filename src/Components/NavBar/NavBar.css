@@ -39,11 +39,11 @@
     font-weight: bold;
     border: solid;
     border-width: 1px;
-    background-color: rgb(141, 140, 140);
+    background-color: blueviolet;
     color: white;
     border-radius: .5rem;
 }
 .logoutBtn:hover{
-    background-color: rgb(108, 108, 108);
+    background-color: rgb(109, 8, 204);
     cursor: pointer;
 }
