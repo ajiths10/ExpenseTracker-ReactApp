@@ -7,6 +7,7 @@ import PasswordReset from "./Components/Pages/PasswordReset/PasswordReset";
 import Expenses from "./Components/Pages/Expenses/Expenses";
 import Context from "./Context/Context";
 import { useContext } from "react";
+import Footer from "./Components/Footer/Footer";
 
 function App() {
   const CTX = useContext(Context);
@@ -36,8 +37,8 @@ function App() {
            <Expenses />
         </Route>}
 
-
       </Switch>
+      <Footer/>
     </div>
   );
 }

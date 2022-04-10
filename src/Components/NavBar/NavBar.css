@@ -1,6 +1,7 @@
 .mainDivv{
     font-weight: bold;
     font-size: 20px;
+    
 }
 
 .hrelement{
@@ -12,24 +13,32 @@
     width: 150px;
     margin-left: 500px;
     margin-top: -23px;
+    text-decoration: dashed;
+}
+.nammeclass{
+    text-decoration: dashed;
+    color: black;
 }
 .subDivvP{
     
     width: 150px;
     margin-left: 300px;
     margin-top: -25px;
+    text-decoration: dashed;
 }
 .subDivvH{
     
     width: 150px;
     margin-left: 100px;
-    margin-top: 15px;
-    padding-top: 10px;
+    padding-top: 20px;
+    text-decoration: dashed;
+    
+    
 }
 .logoutDiv{
     width: 100px;
     margin-left: 90%;
-    margin-top: -30px;
+    margin-top: -20px;
 }
 .logoutBtn{
     width: 110px;

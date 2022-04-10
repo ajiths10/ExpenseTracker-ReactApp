@@ -10,9 +10,9 @@ const ExpensesList = (props) => {
             <label> {props.description}</label>
         </div>
         <div className='moneyItemsdiv'>
-            <label  className='moneyItemslabel'> {props.money}</label>
+            <div className='moneyItemslabels'><label  > {props.money}</label></div>
         </div>
-        <hr></hr>
+        <hr className= 'hrelementss'></hr>
     </div>)
 }
 

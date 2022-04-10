@@ -1,9 +1,9 @@
-import { useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useContext, useState } from 'react';
+import {  NavLink, useHistory } from 'react-router-dom';
 import Context from '../../Context/Context';
 import './NavBar.css';
 
-const NavBar = ()=>{
+const NavBar = ()=>{    
 const history = useHistory();
 const CTX = useContext(Context);
 
@@ -17,10 +17,16 @@ const CTX = useContext(Context);
     }
 
     return(<div className='mainDivv'>
-        <div className='subDivvH' >Home</div>
-        <div className='subDivvP'>Products</div>
-        <div className='subDivvA'>About us</div>
-        <div className='logoutDiv' > <button onClick={logoutHandler} className='logoutBtn' >LogOut</button> </div>
+        <div className='subDivvH'>
+        <NavLink to='/welcome' className='nammeclass' >Home</NavLink>
+        </div>
+        <div className='subDivvP'>
+        <NavLink to='/expenses'className='nammeclass'>Products</NavLink>
+        </div>
+        <div className='subDivvA'>
+        <NavLink to='/' className='nammeclass' >About us</NavLink>
+        </div>
+        <div className='logoutDiv' > <button onClick={logoutHandler} className='logoutBtn' >{CTX.isLogin? 'LogOut' : 'Login'}</button> </div>
         <hr className='hrelement'></hr>
     </div>)
 }

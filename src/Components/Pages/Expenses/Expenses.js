@@ -1,6 +1,6 @@
 import ExpensesForm from "./ExpensesForm";
 import Card from "../../../UI/Card";
-import { useState } from "react";
+import {  useEffect, useState } from "react";
 import ExpensesList from "./ExpensesList";
 import "./Expenses.css";
 import ExpenseTotal from "./ExpenseTotal";
@@ -11,7 +11,7 @@ const Expenses = () => {
   const itemsHandler = (data) => {
     setItems([...items, data]);
   };
-
+  
   const itemsList = items.map((element) => {
     return (
         
@@ -30,7 +30,7 @@ const Expenses = () => {
         <h1> Expense Tracker</h1>
         </div>
       <Card>
-        <ExpenseTotal />
+       <ExpenseTotal />
       </Card>
 
       <Card>
