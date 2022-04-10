@@ -1,0 +1,32 @@
+.maindivitems{
+    margin-left: 3%;
+}
+.maindivitemsh3{
+   
+    width: 100px;
+}
+.maindivitemsdis{
+   
+    width: 300px;
+    margin-left: 20%;
+    margin-top: -40px;
+    color: gray;
+    height: auto;
+}
+.moneyItemsdiv{
+    margin-left: 80%;
+    margin-top: -20px;
+
+    height: 40px;
+}
+.moneyItemslabel{
+    border:solid;
+    border-width: 1px;
+    border-color: rgb(192, 192, 192);
+    font-family: 'product sans';
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 16px;  
+
+    background-color: yellow; 
+}

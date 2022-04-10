@@ -26,6 +26,9 @@ const Expenses = () => {
 
   return (
     <div className="expensesMaindiv">
+        <div className="expensesheading">
+        <h1> Expense Tracker</h1>
+        </div>
       <Card>
         <ExpenseTotal />
       </Card>

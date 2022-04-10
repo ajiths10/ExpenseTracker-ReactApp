@@ -1,11 +1,13 @@
-const ExpenseTotal = () => {
+import './ExpenseTotal.css' 
+
+const ExpenseTotal = (props) => {
   return (
-    <div>
+    <div className='maindiv'>
       <div>
-        <h1>Total Expenses</h1>
+        <h2>Total Expenses</h2>
       </div>
-      <div>
-        <label>$500 </label>
+      <div className='amountdiv' >
+        <label >$500.00 </label>
       </div>
     </div>
   );

@@ -1,14 +1,16 @@
+import './ExpensesList.css';
+
 const ExpensesList = (props) => {
     console.log(props);
-    return(<div>
-        <div>
-            <h2>{props.category}</h2>
+    return(<div className='maindivitems'>
+        <div className='maindivitemsh3'>
+            <h3>{props.category}</h3>
         </div>
-        <div>
+        <div className='maindivitemsdis'>
             <label> {props.description}</label>
         </div>
-        <div>
-            <label> {props.money}</label>
+        <div className='moneyItemsdiv'>
+            <label  className='moneyItemslabel'> {props.money}</label>
         </div>
         <hr></hr>
     </div>)
