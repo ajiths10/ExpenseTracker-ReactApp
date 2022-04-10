@@ -1,4 +1,5 @@
 import React, { useRef } from "react";
+import axios from 'axios';
 import './ExpensesForm.css';
 
 const ExpensesForm = ( props) =>{
@@ -6,7 +7,7 @@ const ExpensesForm = ( props) =>{
     const descriptionRef = useRef()
     const categoryRef = useRef()
 
-    const buttonHandler = (event) => {
+    const buttonHandler = async(event) => {
         event.preventDefault();
 
         const data ={
@@ -14,7 +15,17 @@ const ExpensesForm = ( props) =>{
              enteredDescription: descriptionRef.current.value,
              enteredCategory : categoryRef.current.value,
         }
+        const userId = localStorage.getItem('userID');
         props.onClick(data);
+
+        try{
+            const res = axios.post(`https://expensetracker-userdata-default-rtdb.firebaseio.com/expenses/${userId}.json`,data);
+            console.log(res);
+        }catch(err){
+            console.log(`Some error ${err}`);
+        }
+
+
     }
 
     return(

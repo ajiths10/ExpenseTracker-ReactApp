@@ -7,7 +7,7 @@ const ExpenseTotal = (props) => {
         <h2>Total Expenses</h2>
       </div>
       <div className='amountdiv' >
-        <label >$500.00 </label>
+        <label >{props.total}.00 </label>
       </div>
     </div>
   );
