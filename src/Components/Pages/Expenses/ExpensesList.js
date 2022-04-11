@@ -8,12 +8,13 @@ const ExpensesList = (props) => {
     const CTX = useContext(Context);
 
     const deleteBtnHandler = async(event) =>{
-        event.preventDefault();
+        
         const userId = localStorage.getItem('userID');
         try{
             const res = await axios.delete(`https://expensetracker-userdata-default-rtdb.firebaseio.com/expenses/${userId}/${props.id}.json`)
             console.log(res);
             console.log('Expense successfuly deleted');
+            CTX.forReload();
         }catch(err){
             console.log(`Some error ${err}`);
         }
@@ -28,15 +29,15 @@ const ExpensesList = (props) => {
 
     return(<div className='maindivitems'>
         <div className='maindivitemsh3'>
-            <h3>{props.category}</h3>
+            <h3>{props.description}</h3>
         </div>
         <div className='maindivitemsdis'>
-            <label> {props.description}</label>
+            <label> {props.category}</label>
         </div>
         <div className='moneyItemsdiv'>
             <div className='moneyItemslabels'><label  > {props.money} </label></div>
-            <div><button onClick={deleteBtnHandler}>Delete</button></div>
-            <div><button onClick={editBtnHandler}>Edit</button></div>
+            <div className='DeletebtnDiv' ><button onClick={deleteBtnHandler} className='Deletebtn' >X</button></div>
+            <div className='EditbtnDiv'><button onClick={editBtnHandler } className='Editbtn'>✎</button></div>
         </div>
         <hr className= 'hrelementss'></hr>
     </div>)

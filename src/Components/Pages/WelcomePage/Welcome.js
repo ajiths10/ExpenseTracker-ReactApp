@@ -7,8 +7,7 @@ const Welcome = () =>{
 
 
     const autoVerifyEmailCheck = async() =>{
-        const jwttoken = localStorage.getItem('JWTTOKEN');
-
+       
         const token = localStorage.getItem('JWTTOKEN');
 
         try{

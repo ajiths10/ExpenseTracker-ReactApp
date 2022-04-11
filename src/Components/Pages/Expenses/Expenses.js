@@ -1,48 +1,23 @@
-import axios from 'axios';
+import {  useContext , useEffect } from "react";
 import ExpensesForm from "./ExpensesForm";
 import Card from "../../../UI/Card";
-import {  useEffect, useState } from "react";
 import ExpensesList from "./ExpensesList";
 import "./Expenses.css";
 import ExpenseTotal from "./ExpenseTotal";
+import Context from "../../../Context/Context";
 
 const Expenses = () => {
-  const [items, setItems] = useState([]);
-  const [total,setTotal] = useState(0);
-  const itemsHandler = (data) => {
-    setItems([...items, data]);
-  };
-
-  const autoreloadExpenses = async() =>{
-    const userId = localStorage.getItem('userID');
-    try{
-      const res =await axios.get(`https://expensetracker-userdata-default-rtdb.firebaseio.com/expenses/${userId}.json`)
-      const data =res.data;
-      let arr=[];
-      let index=0;
-      for(const key in data){
-        
-        arr[index]={
-          enteredCategory:data[key].enteredCategory,
-          enteredDescription:data[key].enteredDescription,
-          enteredMoney:data[key].enteredMoney,
-          id:key,
-          
-        }
-
-        index++;
-      }
-      setItems([...arr]);
-      
-    }catch(err){
-      console.log(`Some error ${err}`);
-    }
-  }
-useEffect(()=>{
-  autoreloadExpenses();
-},[]);
+  const CTX = useContext(Context);
   
-  const itemsList = items.map((element) => {
+  const auto = () =>{
+    CTX.forReload()
+  }
+  useEffect(auto,[]);
+
+  const itemsli = CTX.items;
+
+
+  const itemsList = itemsli.map((element) => {
     return (
         
       <ExpensesList
@@ -55,18 +30,8 @@ useEffect(()=>{
       
     );
   });
-  let totalAmount=0;
-  const totalCal =()=>{
-    items.map((element)=>{
-      totalAmount = totalAmount + Number(element.enteredMoney);
-    })
-    setTotal(totalAmount);
-    
-  }
 
- useEffect(()=>{
-   totalCal();
- },[items])
+
 
   return (
     <div className="expensesMaindiv">
@@ -74,11 +39,11 @@ useEffect(()=>{
         <h1> Expense Tracker</h1>
         </div>
       <Card>
-       <ExpenseTotal total={total}/>
+       <ExpenseTotal total={CTX.total}/>
       </Card>
 
       <Card>
-        <ExpensesForm onClick={itemsHandler} />
+        <ExpensesForm onClick={''} />
       </Card>
       <Card>{itemsList}</Card>
     </div>

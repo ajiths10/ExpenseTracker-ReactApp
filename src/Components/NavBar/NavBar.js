@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, } from 'react';
 import {  NavLink, useHistory } from 'react-router-dom';
 import Context from '../../Context/Context';
 import './NavBar.css';
@@ -13,6 +13,7 @@ const CTX = useContext(Context);
         localStorage.setItem('userID','');
         localStorage.setItem('Email','');
         CTX.login(false);
+        
         history.replace('/auth');
     }
 

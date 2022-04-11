@@ -12,7 +12,7 @@ const ExpensesForm = ( props) =>{
 
     const buttonHandler = async(event) => {
         event.preventDefault();
-
+        setLoading(true);
         const data ={
              enteredMoney : moneyRef.current.value,
              enteredDescription: descriptionRef.current.value,
@@ -20,14 +20,14 @@ const ExpensesForm = ( props) =>{
         }
         const userId = localStorage.getItem('userID');
         
-        if(moneyRef.current.value !='' && 
-        descriptionRef.current.value !='' 
+        if(moneyRef.current.value !=='' && 
+        descriptionRef.current.value !=='' 
         ){
             try{
-                setLoading(true);
+                
                 const res = axios.post(`https://expensetracker-userdata-default-rtdb.firebaseio.com/expenses/${userId}.json`,data);
                 console.log(res);
-                props.onClick(data);
+                CTX.itemsSetup(data);
             }catch(err){
                 console.log(`Some error ${err}`);
             }
@@ -60,6 +60,10 @@ const ExpensesForm = ( props) =>{
                 const res = await axios.put(`https://expensetracker-userdata-default-rtdb.firebaseio.com/expenses/${userIdEdit}/${id}.json`,data)
                 console.log(res);
                 console.log('delete success');
+                moneyRef.current.value='';
+                descriptionRef.current.value='';
+                categoryRef.current.value='';
+                CTX.forReload();
             }catch(err){
                 console.log(`Some error ${err}`);
             }
@@ -102,8 +106,8 @@ const ExpensesForm = ( props) =>{
                     </div>
                     </div>
                     <div className="submitdivv">
-                        {!CTX.isEditOn && <button onClick={buttonHandler}  className="submitdivbtn" > {isLoading? 'Loading':'Submit'} </button>}
-                       {CTX.isEditOn && <button onClick={editBTNHandler}  className="submitdivbtn" >{isLoading? 'Loading':'Update'}</button>}
+                        {!CTX.isEditOn && <button onClick={buttonHandler}  className="submitdivbtn" > {isLoading? 'Loading...':'Submit'} </button>}
+                       {CTX.isEditOn && <button onClick={editBTNHandler}  className="submitdivbtn" >{isLoading? 'Loading...':'Update'}</button>}
                     </div>
                 </form>
             </div>
