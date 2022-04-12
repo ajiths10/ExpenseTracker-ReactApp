@@ -1,31 +1,20 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
 import Context from "./Context";
+import { useDispatch } from "react-redux";
+import { itemsAction } from "../store/fetchData";
 
 const ContextProvider = (props) =>{
-
-    const [isLogin ,setLogin ]= useState(false);
+const dispatch = useDispatch();
     const [isEditOn, setEdit] =useState(false);
     const [values , setValues] = useState('');
-    const [items, setItems] = useState([]);
-    const [total,setTotal] = useState(0);
+  
 
     //set login status
-    const loginHandler = (value) =>{
-        setLogin(value);
-    }
+
 
     //check login or not
-    useEffect(()=>{
-        const localIsLogin = localStorage.getItem('JWTTOKEN');
-        if(localIsLogin ===null){
-            setLogin(false);
-        }else if(localIsLogin === ''){
-            setLogin(false);
-        }else if(localIsLogin.trim().length > 0){
-            setLogin(true);
-        }
-    },[])
+ 
 
     //find edit enable or not
     const setEdingState =(value)=>{
@@ -56,8 +45,8 @@ const ContextProvider = (props) =>{
             }
             index++;
           }
-          setItems([...arr]);
           
+         dispatch(itemsAction.fetchExpenses(arr))
         }catch(err){
           console.log(`Some error ${err}`);
         }
@@ -67,36 +56,14 @@ const ContextProvider = (props) =>{
     },[]);
 
     //for calculate total Amount
-    let totalAmount=0;
-    const totalCal =()=>{
-      items.map((element)=>{
-        totalAmount = totalAmount + Number(element.enteredMoney);
-      })
-      setTotal(totalAmount);
-      
-    }
-   useEffect(()=>{
-     totalCal();
-   },[items])
 
-
-
-   //Adding new by state
-    const itemsHandler = (data) => {
-    setItems([...items, data]);
-    };
 
 
     const contextData={
-        isLogin: isLogin,
-        login: loginHandler,
         editable: editHandler,
         editValues:values,
         isEditOn:isEditOn,
-        editStateFunction:setEdingState,
-        items:items,
-        total:total,
-        itemsSetup:itemsHandler,
+        editStateFunction:setEdingState,    
         forReload:autoreloadExpenses,
         
     }

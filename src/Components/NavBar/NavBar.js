@@ -1,9 +1,12 @@
 import { useContext, } from 'react';
+import { useDispatch } from 'react-redux';
 import {  NavLink, useHistory } from 'react-router-dom';
 import Context from '../../Context/Context';
 import './NavBar.css';
+import { authActions } from '../../store/auth';
 
 const NavBar = ()=>{    
+    const dispatch = useDispatch();
 const history = useHistory();
 const CTX = useContext(Context);
 
@@ -12,8 +15,8 @@ const CTX = useContext(Context);
         localStorage.setItem('JWTTOKEN','');
         localStorage.setItem('userID','');
         localStorage.setItem('Email','');
-        CTX.login(false);
         
+        dispatch(authActions.logout());
         history.replace('/auth');
     }
 

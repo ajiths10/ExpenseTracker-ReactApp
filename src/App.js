@@ -5,35 +5,42 @@ import Welcome from "./Components/Pages/WelcomePage/Welcome";
 import UserDetailsUpdate from "./Components/Pages/UserDetailsUpdate/UserDetailsUpdate";
 import PasswordReset from "./Components/Pages/PasswordReset/PasswordReset";
 import Expenses from "./Components/Pages/Expenses/Expenses";
-import Context from "./Context/Context";
-import { useContext } from "react";
 import Footer from "./Components/Footer/Footer";
+import { useSelector, useDispatch } from 'react-redux';
+import { useEffect } from "react";
+import { authActions } from './store/auth';
+
 
 function App() {
-  const CTX = useContext(Context);
+  const dispatch = useDispatch();
+  const login = useSelector(state=>state.auth.isAuthenticated)
+
+  useEffect(()=>{
+    dispatch(authActions.checker());
+  },[])
 
   return (
     <div>
       <NavBar />
       <Switch>
-        {!CTX.isLogin &&<Route path="/auth" exact>
+        {!login &&<Route path="/auth" exact>
          <LoginPage />
         </Route>}
         
 
-        {CTX.isLogin && <Route path="/welcome" exact>
+        {login && <Route path="/welcome" exact>
            <Welcome />
         </Route>}
 
-         {CTX.isLogin && <Route path="/user" exact>
+         {login && <Route path="/user" exact>
          <UserDetailsUpdate />  
         </Route>}
 
-        {!CTX.isLogin && <Route path="/reset" exact>
+        {!login && <Route path="/reset" exact>
            <PasswordReset />
         </Route>}
 
-        {CTX.isLogin && <Route path="/expenses" exact>
+        {login && <Route path="/expenses" exact>
            <Expenses />
         </Route>}
 
