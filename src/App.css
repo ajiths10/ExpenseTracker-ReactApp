@@ -1,0 +1,18 @@
+.invert{
+    filter: invert(1) hue-rotate(180deg);   
+    animation: darkMode 1s  ;
+}
+
+.bgColorApp{
+    background-color: white;
+}
+
+@keyframes darkMode {
+    
+    from{  filter: invert(0) hue-rotate(180deg);
+     }
+    
+    to{ filter: invert(1) hue-rotate(180deg);
+    }
+    
+}

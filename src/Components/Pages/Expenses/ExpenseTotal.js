@@ -17,7 +17,14 @@ const ExpenseTotal = () => {
     dispatch(premiumActions.PremiumBtnDeactive())
   }
 
+  const activatePreminum =(event)=>{
+      event.preventDefault();
+      console.log('activate')
+      dispatch(premiumActions.activatePremium());
+  }
+
   return (
+
     <div className='maindiv'>
       <div>
         <h2>Total Expenses</h2>
@@ -26,7 +33,7 @@ const ExpenseTotal = () => {
         <label >{totalAmount}.00 </label>
       </div>
       {isPremium && <div className='preminumDiv'>
-      <button className='preminumBTN'>Premium Button.</button>
+      <button className='preminumBTN' onClick={activatePreminum}>Premium Button.</button>
       </div>}
     </div>
   );

@@ -1,7 +1,7 @@
 .mainDivv{
     font-weight: bold;
     font-size: 20px;
-    
+    background-color: white;
 }
 
 .hrelement{
@@ -56,3 +56,14 @@
     background-color: rgb(179, 70, 51);
     cursor: pointer;
 }
+
+.container {
+    height: 40px;
+    margin: auto;
+    text-align: center;
+    margin-left: 80%;
+    margin-top: -20px;
+    width: 100px;
+    height: 20px;
+    
+  }

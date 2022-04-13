@@ -9,18 +9,23 @@ import Footer from "./Components/Footer/Footer";
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from "react";
 import { authActions } from './store/auth';
-
+import './App.css';
 
 function App() {
   const dispatch = useDispatch();
-  const login = useSelector(state=>state.auth.isAuthenticated)
+  const login = useSelector(state=>state.auth.isAuthenticated);
+  const darkMode =useSelector(state=>state.darkMode.isDarkMode);
+
 
   useEffect(()=>{
     dispatch(authActions.checker());
   },[])
 
   return (
-    <div>
+    <div className={darkMode? "invert" : ''}>
+      <div className="bgColorApp">
+
+      
       <NavBar />
       <Switch>
         {!login &&<Route path="/auth" exact>
@@ -46,6 +51,7 @@ function App() {
 
       </Switch>
       <Footer/>
+      </div>
     </div>
   );
 }

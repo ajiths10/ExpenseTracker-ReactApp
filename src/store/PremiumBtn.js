@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const btnInitialState = {
-    isPremium: false
+    isPremium: false,
+    preminumValue: false,
 }
 
 const PremiumBtn = createSlice({
@@ -10,10 +11,16 @@ const PremiumBtn = createSlice({
     reducers: {
         PremiumBtnActive(state){
             state.isPremium = true;
+            state.preminumValue = state.preminumValue
         },
         PremiumBtnDeactive(state){
             state.isPremium = false
-        }
+            state.preminumValue = false
+        },
+        activatePremium(state){
+            state.preminumValue= true
+            state.isPremium = state.isPremium;
+        },
     }
 })
 
