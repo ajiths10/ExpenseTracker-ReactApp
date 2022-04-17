@@ -47,7 +47,7 @@ console.log(ispremium)
       </div>
 
     {ispremium && <div className="container">
-        <button onClick={checkBoxHandler}>Toggle</button>
+        <button onClick={checkBoxHandler} className='toggleBtn'>Toggle</button>
     </div> }
 
       <div className="logoutDiv">

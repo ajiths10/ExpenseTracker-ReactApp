@@ -24,7 +24,6 @@ function App() {
   return (
     <div className={darkMode? "invert" : ''}>
       <div className="bgColorApp">
-
       
       <NavBar />
       <Switch>

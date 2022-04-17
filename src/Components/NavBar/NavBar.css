@@ -66,4 +66,16 @@
     width: 100px;
     height: 20px;
     
+    
+  }
+
+  .toggleBtn{
+      border: solid;
+      border-width: 1px;
+      background-color: aliceblue;
+      color: black;
+      height: 25px;
+      width: 100px;
+      font-weight: bold;
+      border-color: rgb(203, 203, 203);
   }

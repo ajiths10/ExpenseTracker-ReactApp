@@ -1,12 +1,16 @@
-import './ExpenseTotal.css' 
+import { CSVLink } from 'react-csv';
 import { useDispatch ,useSelector } from 'react-redux';
 import { premiumActions } from '../../../store/PremiumBtn';
+import './ExpenseTotal.css' 
+
 
 const ExpenseTotal = () => {
   const items = useSelector(state=>state.itemsData.itemList);
   const isPremium = useSelector(state=>state.premium.isPremium)
+  const pActive = useSelector(state=>state.premium.preminumValue)
   const dispatch = useDispatch();
   let totalAmount=0;
+
   items.map((element)=>{
      totalAmount += Number(element.enteredMoney);
   })
@@ -23,11 +27,15 @@ const ExpenseTotal = () => {
       dispatch(premiumActions.activatePremium());
   }
 
-  return (
+ 
+     const csvData = [...items];
+   
+  return ( 
 
     <div className='maindiv'>
       <div>
         <h2>Total Expenses</h2>
+        
       </div>
       <div className='amountdiv' >
         <label >{totalAmount}.00 </label>
@@ -35,6 +43,8 @@ const ExpenseTotal = () => {
       {isPremium && <div className='preminumDiv'>
       <button className='preminumBTN' onClick={activatePreminum}>Premium Button.</button>
       </div>}
+      
+      {pActive && <div className='downloadBTnDiv' ><CSVLink data ={csvData}><button className='downloadBTn'> 🡇 Download file</button></CSVLink>  </div>}
     </div>
   );
 };

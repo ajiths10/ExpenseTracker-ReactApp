@@ -9,7 +9,7 @@
 
 @keyframes darkMode {
     
-    from{  filter: invert(0) hue-rotate(180deg);
+    from{  filter: invert(0) hue-rotate(0deg);
      }
     
     to{ filter: invert(1) hue-rotate(180deg);
