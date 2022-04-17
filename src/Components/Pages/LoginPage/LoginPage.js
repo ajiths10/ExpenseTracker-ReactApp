@@ -3,9 +3,11 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import './LoginPage.css';
 import { authActions } from '../../../store/auth';
+import Context from '../../../Context/Context';
 
 const LoginPage = () =>{
     const dispatch = useDispatch();
+    const CTX =useContext(Context);
 
     const emailRef= useRef();
     const passwordOneRef =useRef();
@@ -53,7 +55,7 @@ const LoginPage = () =>{
                         localStorage.setItem('Email',data.email);
                         emailRef.current.value='';
                         passwordOneRef.current.value='';
-                        
+                        CTX.forReload();
                         dispatch(authActions.login());
                         history.replace('/welcome');
                       }else{
@@ -64,7 +66,9 @@ const LoginPage = () =>{
                 catch(err){
                     console('Loging Something went wrong!');
                 }
-            }    
+            } else{
+                alert('Login Credential Wrong!')
+            }   
         } 
         //Signup
          else if(!swapCheck){

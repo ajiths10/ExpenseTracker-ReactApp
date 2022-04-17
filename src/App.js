@@ -1,15 +1,18 @@
+import React, { useEffect, Suspense } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
-import LoginPage from "./Components/Pages/LoginPage/LoginPage";
-import NavBar from "./Components/NavBar/NavBar";
-import Welcome from "./Components/Pages/WelcomePage/Welcome";
-import UserDetailsUpdate from "./Components/Pages/UserDetailsUpdate/UserDetailsUpdate";
-import PasswordReset from "./Components/Pages/PasswordReset/PasswordReset";
-import Expenses from "./Components/Pages/Expenses/Expenses";
-import Footer from "./Components/Footer/Footer";
 import { useSelector, useDispatch } from 'react-redux';
-import { useEffect } from "react";
+import NavBar from "./Components/NavBar/NavBar";
+import Footer from "./Components/Footer/Footer";
 import { authActions } from './store/auth';
 import './App.css';
+import Loading from "./Components/Pages/Loading/Loading";
+
+const Welcome = React.lazy(()=>import('./Components/Pages/WelcomePage/Welcome'));
+const PasswordReset =React.lazy(()=>import( "./Components/Pages/PasswordReset/PasswordReset"));
+const UserDetailsUpdate = React.lazy(()=>import("./Components/Pages/UserDetailsUpdate/UserDetailsUpdate"))
+const Expenses = React.lazy(()=>import("./Components/Pages/Expenses/Expenses"));
+const LoginPage = React.lazy(()=>import("./Components/Pages/LoginPage/LoginPage"));
+
 
 function App() {
   const dispatch = useDispatch();
@@ -22,9 +25,10 @@ function App() {
   },[])
 
   return (
+    <Suspense fallback={<Loading />}>
     <div className={darkMode? "invert" : ''}>
       <div className="bgColorApp">
-      
+  
       <NavBar />
       <Switch>
         {!login &&<Route path="/auth" exact>
@@ -35,6 +39,9 @@ function App() {
         {login && <Route path="/welcome" exact>
            <Welcome />
         </Route>}
+        <Route path='/about' exact>
+          <Loading />
+        </Route>
 
          {login && <Route path="/user" exact>
          <UserDetailsUpdate />  
@@ -48,10 +55,16 @@ function App() {
            <Expenses />
         </Route>}
 
+        <Route path='*' exact>
+          {login && <Redirect to='/expenses'></Redirect>}
+          { !login && <Redirect to='/auth'></Redirect>}
+        </Route>
+
       </Switch>
       <Footer/>
       </div>
     </div>
+    </Suspense>
   );
 }
 

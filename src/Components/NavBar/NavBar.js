@@ -41,7 +41,7 @@ console.log(ispremium)
       </div>
 
       <div className="subDivvA">
-        <NavLink to="/" className="nammeclass">
+        <NavLink to="/about" className="nammeclass">
           About us
         </NavLink>
       </div>
