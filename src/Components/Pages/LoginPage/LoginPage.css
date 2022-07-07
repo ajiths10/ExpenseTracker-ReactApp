@@ -30,8 +30,7 @@
 }
 .emaildiv{
     height: 45px;
-    padding-top: 4%;  
-
+    padding: 4%;  
 }
 
 
@@ -68,9 +67,10 @@
     color: rgb(255, 255, 255);
     font-family: 'Product Sans';
     cursor: pointer;
+    z-index: 1;
 }
 .submitbtn:hover{
-    background-color: #0645b8 ;
+    background-color: #072c71 ;
     cursor: pointer;
 }
 .changebtn{

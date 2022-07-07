@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import "./LoginPage.css";
 import { authActions } from "../../../store/auth";
 import Context from "../../../Context/Context";
+import axios from "axios";
 
 const LoginPage = () => {
   const dispatch = useDispatch();
@@ -25,6 +26,13 @@ const LoginPage = () => {
     event.preventDefault();
     const enteredEmail = emailRef.current.value;
     const enteredPassword = passwordOneRef.current.value;
+    const enteredName = FullNameRef.current.value;
+    const reqBody = {
+      email: enteredEmail,
+      password: enteredPassword,
+      name: enteredName
+    }
+    console.log(reqBody)
 
     //Login
     if (swapCheck) {
@@ -33,21 +41,10 @@ const LoginPage = () => {
         emailRef.current.value.includes("@") &&
         emailRef.current.value.includes(".com")
       ) {
+        
         try {
-          const response = await fetch(
-            "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCrNT0jOFIUrCoslzyrlcZDJIUqzYGvDLc",
-            {
-              method: "POST",
-              body: JSON.stringify({
-                email: enteredEmail,
-                password: enteredPassword,
-                returnSecureToken: true,
-              }),
-              headers: {
-                "Content-Type": "application/json",
-              },
-            }
-          );
+          const response = await axios.post('http://localhost:7777/auth/user/login',reqBody);
+          console.log(response)
           if (response.ok) {
             const data = await response.json();
             console.log(data);
@@ -61,7 +58,7 @@ const LoginPage = () => {
             history.replace("/welcome");
           } else {
             const data = await response.json();
-            alert(data.error.message);
+           // alert(data.error.message);
           }
         } catch (err) {
           console("Loging Something went wrong!");
@@ -79,20 +76,8 @@ const LoginPage = () => {
         emailRef.current.value.includes(".com")
       ) {
         try {
-          const response = await fetch(
-            "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCrNT0jOFIUrCoslzyrlcZDJIUqzYGvDLc",
-            {
-              method: "POST",
-              body: JSON.stringify({
-                email: enteredEmail,
-                password: enteredPassword,
-                returnSecureToken: true,
-              }),
-              headers: {
-                "Content-Type": "application/json",
-              },
-            }
-          );
+          const response = await axios.post('http://localhost:7777/auth/user/signup',reqBody);
+          console.log(response)
           if (response.ok) {
             console.log("User has successfully signed up.");
             emailRef.current.value = "";
@@ -100,8 +85,8 @@ const LoginPage = () => {
             passwordTwoRef.current.value = "";
             setSwap(true);
           } else {
-            const data = await response.json();
-            alert(data.error.message);
+            //const data = await response.json();
+           // alert(data.error.message);
           }
         } catch (err) {
           console.log("Something went wrong");
@@ -173,7 +158,7 @@ const LoginPage = () => {
                   />
                 </div>
               )}
-              <div className="emaildiv">
+              <div >
                 <button onClick={SignupBtnHandler} className="submitbtn">
                   {swapCheck ? "Login" : "SignUp"}
                 </button>
