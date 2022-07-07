@@ -5,10 +5,12 @@ import "./LoginPage.css";
 import { authActions } from "../../../store/auth";
 import Context from "../../../Context/Context";
 import axios from "axios";
+import { useSnackbar } from "notistack";
 
 const LoginPage = () => {
   const dispatch = useDispatch();
   const CTX = useContext(Context);
+  const { enqueueSnackbar } = useSnackbar();
   const { forReload } = CTX;
   const emailRef = useRef();
   const passwordOneRef = useRef();
@@ -16,6 +18,15 @@ const LoginPage = () => {
   const FullNameRef = useRef();
   const [swapCheck, setSwap] = useState(false);
   const history = useHistory();
+
+  const setAlert = (response) => {
+
+    enqueueSnackbar(response.message, {
+      variant: response.type === 1 ? "success" : "error",
+      anchorOrigin: { vertical: "bottom", horizontal: "right" },
+      preventDuplicate: true,
+    });
+  };
 
   const swapHandler = (event) => {
     event.preventDefault();
@@ -30,9 +41,9 @@ const LoginPage = () => {
     const reqBody = {
       email: enteredEmail,
       password: enteredPassword,
-      name: enteredName
-    }
-    console.log(reqBody)
+      name: enteredName,
+    };
+    console.log(reqBody);
 
     //Login
     if (swapCheck) {
@@ -41,10 +52,12 @@ const LoginPage = () => {
         emailRef.current.value.includes("@") &&
         emailRef.current.value.includes(".com")
       ) {
-        
         try {
-          const response = await axios.post('http://localhost:7777/auth/user/login',reqBody);
-          console.log(response)
+          const response = await axios.post(
+            "http://localhost:7777/auth/user/login",
+            reqBody
+          );
+          console.log(response);
           if (response.ok) {
             const data = await response.json();
             console.log(data);
@@ -58,7 +71,7 @@ const LoginPage = () => {
             history.replace("/welcome");
           } else {
             const data = await response.json();
-           // alert(data.error.message);
+            // alert(data.error.message);
           }
         } catch (err) {
           console("Loging Something went wrong!");
@@ -76,8 +89,12 @@ const LoginPage = () => {
         emailRef.current.value.includes(".com")
       ) {
         try {
-          const response = await axios.post('http://localhost:7777/auth/user/signup',reqBody);
-          console.log(response)
+          const response = await axios.post(
+            "http://localhost:7777/auth/user/signup",
+            reqBody
+          );
+          console.log(response);
+          setAlert(response.data);
           if (response.ok) {
             console.log("User has successfully signed up.");
             emailRef.current.value = "";
@@ -86,7 +103,7 @@ const LoginPage = () => {
             setSwap(true);
           } else {
             //const data = await response.json();
-           // alert(data.error.message);
+            // alert(data.error.message);
           }
         } catch (err) {
           console.log("Something went wrong");
@@ -158,7 +175,7 @@ const LoginPage = () => {
                   />
                 </div>
               )}
-              <div >
+              <div>
                 <button onClick={SignupBtnHandler} className="submitbtn">
                   {swapCheck ? "Login" : "SignUp"}
                 </button>
