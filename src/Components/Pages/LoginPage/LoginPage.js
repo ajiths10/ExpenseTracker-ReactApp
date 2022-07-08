@@ -37,7 +37,7 @@ const LoginPage = () => {
     event.preventDefault();
     const enteredEmail = emailRef.current.value;
     const enteredPassword = passwordOneRef.current.value;
-    const enteredName = FullNameRef.current.value;
+    const enteredName = FullNameRef?.current?.value? FullNameRef.current.value : '';
     const reqBody = {
       email: enteredEmail,
       password: enteredPassword,
@@ -58,6 +58,7 @@ const LoginPage = () => {
             reqBody
           );
           console.log(response);
+          setAlert(response.data);
           if (response.ok) {
             const data = await response.json();
             console.log(data);
@@ -74,7 +75,9 @@ const LoginPage = () => {
             // alert(data.error.message);
           }
         } catch (err) {
-          console("Loging Something went wrong!");
+          let errLoginResponse = { message: "Something went wrong!" , type: 0 }
+          setAlert(errLoginResponse)
+          console.log("Loging Something went wrong!");
         }
       } else {
         alert("Login Credential Wrong!");
@@ -106,6 +109,8 @@ const LoginPage = () => {
             // alert(data.error.message);
           }
         } catch (err) {
+          let errSignResponse = { message: "Something went wrong!" , type: 0 }
+          setAlert(errSignResponse)
           console.log("Something went wrong");
           console.log(err);
         }
@@ -175,7 +180,7 @@ const LoginPage = () => {
                   />
                 </div>
               )}
-              <div>
+              <div className="signup-container">
                 <button onClick={SignupBtnHandler} className="submitbtn">
                   {swapCheck ? "Login" : "SignUp"}
                 </button>
