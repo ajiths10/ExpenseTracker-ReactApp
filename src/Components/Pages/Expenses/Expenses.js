@@ -17,9 +17,9 @@ console.log(itemsX)
     return (
         
       <ExpensesList
-        money={element.enteredMoney}
-        description={element.enteredDescription}
-        category={element.enteredCategory}
+        money={element.amount}
+        description={element.description}
+        category={element.category}
         id={element.id}
         key={element.id}
       />

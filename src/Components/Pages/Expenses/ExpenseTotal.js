@@ -12,7 +12,7 @@ const ExpenseTotal = () => {
   let totalAmount=0;
 
   items.map((element)=>{
-     totalAmount += Number(element.enteredMoney);
+     totalAmount += Number(element.amount);
   })
 
   if(totalAmount>10000 ){

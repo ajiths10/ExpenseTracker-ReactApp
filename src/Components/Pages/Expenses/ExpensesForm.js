@@ -4,6 +4,7 @@ import axios from 'axios';
 import Context from "../../../Context/Context";
 import './ExpensesForm.css';
 import { itemsAction } from "../../../store/fetchData";
+import { useSnackbar } from "notistack";
 
 const ExpensesForm = ( props) =>{
     const dispatch = useDispatch();
@@ -12,25 +13,36 @@ const ExpensesForm = ( props) =>{
     const moneyRef = useRef()
     const descriptionRef = useRef()
     const categoryRef = useRef()
+  const { enqueueSnackbar } = useSnackbar();
+
+    const setAlert = (response) => {
+
+        enqueueSnackbar(response.message, {
+          variant: response.type === 1 ? "success" : "error",
+          anchorOrigin: { vertical: "bottom", horizontal: "right" },
+        //   preventDuplicate: true,
+        });
+      };    
 
     const buttonHandler = async(event) => {
         event.preventDefault();
         setLoading(true);
         const data ={
-             enteredMoney : moneyRef.current.value,
-             enteredDescription: descriptionRef.current.value,
-             enteredCategory : categoryRef.current.value,
+             amount : moneyRef.current.value,
+             description: descriptionRef.current.value,
+             category : categoryRef.current.value,
         }
-        const userId = localStorage.getItem('userID');
+        
+        const token = localStorage.getItem('JWTTOKEN');
         
         if(moneyRef.current.value !=='' && 
         descriptionRef.current.value !=='' 
         ){
             try{
                 
-                const res = axios.post(`https://expensetracker-userdata-default-rtdb.firebaseio.com/expenses/${userId}.json`,data);
+                const res = await axios.post(`http://localhost:7777/auth/api/addexpense`,data,{ headers: { "Authorization" : token}});
                 console.log(res);
-               
+                setAlert(res.data);
                 dispatch(itemsAction.newExpenses(data));
             }catch(err){
                 console.log(`Some error ${err}`);
@@ -55,9 +67,9 @@ const ExpensesForm = ( props) =>{
             let id = CTX.editValues.id;
             const userIdEdit = localStorage.getItem('userID');
             const data={
-                enteredMoney: moneyRef.current.value,
-                enteredDescription: descriptionRef.current.value,
-                enteredCategory:categoryRef.current.value
+                amount: moneyRef.current.value,
+                description: descriptionRef.current.value,
+                category:categoryRef.current.value
             }
             setLoading(true);
             try{

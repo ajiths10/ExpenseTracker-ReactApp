@@ -59,25 +59,20 @@ const LoginPage = () => {
           );
           console.log(response);
           setAlert(response.data);
-          if (response.ok) {
-            const data = await response.json();
-            console.log(data);
-            localStorage.setItem("JWTTOKEN", data.idToken);
-            localStorage.setItem("userID", data.localId);
-            localStorage.setItem("Email", data.email);
-            emailRef.current.value = "";
-            passwordOneRef.current.value = "";
-            forReload();
+          if (response.data.response) {
+            const data = response.data
+            localStorage.setItem("JWTTOKEN", data.jwttoken);
+            // emailRef.current.value = "";
+            // passwordOneRef.current.value = "";
+            // FullNameRef.current.value = "";
+            //forReload();
             dispatch(authActions.login());
             history.replace("/welcome");
-          } else {
-            const data = await response.json();
-            // alert(data.error.message);
           }
         } catch (err) {
-          let errLoginResponse = { message: "Something went wrong!" , type: 0 }
-          setAlert(errLoginResponse)
-          console.log("Loging Something went wrong!");
+        
+          setAlert(  { message: "Something went wrong!" , type: 0 } )
+
         }
       } else {
         alert("Login Credential Wrong!");
@@ -100,17 +95,16 @@ const LoginPage = () => {
           setAlert(response.data);
           if (response.ok) {
             console.log("User has successfully signed up.");
-            emailRef.current.value = "";
-            passwordOneRef.current.value = "";
-            passwordTwoRef.current.value = "";
+            // emailRef.current.value = "";
+            // passwordOneRef.current.value = "";
+            // passwordTwoRef.current.value = "";
             setSwap(true);
           } else {
             //const data = await response.json();
             // alert(data.error.message);
           }
         } catch (err) {
-          let errSignResponse = { message: "Something went wrong!" , type: 0 }
-          setAlert(errSignResponse)
+          setAlert({ message: "Something went wrong!" , type: 0 })
           console.log("Something went wrong");
           console.log(err);
         }
