@@ -6,6 +6,7 @@ import { authActions } from "../../../store/auth";
 import Context from "../../../Context/Context";
 import axios from "axios";
 import { useSnackbar } from "notistack";
+import { premiumActions } from "../../../store/PremiumBtn";
 
 const LoginPage = () => {
   const dispatch = useDispatch();
@@ -62,10 +63,16 @@ const LoginPage = () => {
           if (response.data.response) {
             const data = response.data
             localStorage.setItem("JWTTOKEN", data.jwttoken);
+            localStorage.setItem("username", data.userData.username);
+            localStorage.setItem("email", data.userData.email);
             // emailRef.current.value = "";
             // passwordOneRef.current.value = "";
             // FullNameRef.current.value = "";
             //forReload();
+            if(data.userData.isPreminum){
+              dispatch(premiumActions.activatePremium()); 
+            }
+
             dispatch(authActions.login());
             history.replace("/welcome");
           }

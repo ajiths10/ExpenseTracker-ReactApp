@@ -7,6 +7,8 @@ import { authActions } from "./store/auth";
 import "./App.css";
 import Loading from "./Components/Pages/Loading/Loading";
 import { SnackbarProvider } from "notistack";
+const dotenv = require('dotenv');
+dotenv.config();
 
 const Welcome = React.lazy(() =>
   import("./Components/Pages/WelcomePage/Welcome")

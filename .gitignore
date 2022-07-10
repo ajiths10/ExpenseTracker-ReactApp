@@ -4,3 +4,4 @@ node_modules/*
 .firebaserc
 build/
 firebase.json
+.env
