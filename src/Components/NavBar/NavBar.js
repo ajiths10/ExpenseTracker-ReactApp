@@ -48,7 +48,12 @@ console.log(ispremium)
           About us
         </NavLink>
       </div>
-
+      {ispremium && <div className="subDivvL">
+        <NavLink to="/leadership" className="nammeclass">
+          Leadership
+        </NavLink>
+      </div>
+}
     {ispremium && <div className="container">
         <button onClick={checkBoxHandler} className='toggleBtn'>Toggle</button>
     </div> }

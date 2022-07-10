@@ -1,6 +1,9 @@
 .CardDiv{
-    margin-left: 25%;
+     margin-left: 25%; 
     margin-top: 3%;
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
     border: solid;
     border-width: 1px;
     border-radius: .8rem;

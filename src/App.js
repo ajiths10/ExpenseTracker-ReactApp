@@ -9,6 +9,7 @@ import axios from "axios";
 import Loading from "./Components/Pages/Loading/Loading";
 import { premiumActions } from "./store/PremiumBtn"
 import { SnackbarProvider } from "notistack";
+import Leadership from "./Components/Pages/Leadership";
 const dotenv = require("dotenv");
 dotenv.config();
 
@@ -94,6 +95,11 @@ function App() {
               {login && (
                 <Route path="/user" exact>
                   <UserDetailsUpdate />
+                </Route>
+              )}
+              {login && (
+                <Route path="/leadership" exact>
+                  <Leadership />
                 </Route>
               )}
 
