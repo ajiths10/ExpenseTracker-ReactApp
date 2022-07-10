@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import "./NavBar.css";
 import { authActions } from "../../store/auth";
 import { darkModeActions } from '../../store/darkMode';
+import { premiumActions } from "../../store/PremiumBtn";
 
 const NavBar = () => {
   const dispatch = useDispatch();
@@ -16,7 +17,7 @@ const NavBar = () => {
     localStorage.setItem("JWTTOKEN", "");
     localStorage.setItem("userID", "");
     localStorage.setItem("Email", "");
-
+    dispatch(premiumActions.PremiumBtnDeactive());
     dispatch(authActions.logout());
     history.replace("/auth");
   };

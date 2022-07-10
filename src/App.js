@@ -1,13 +1,15 @@
 import React, { useEffect, Suspense } from "react";
-import { Redirect, Route, Switch } from "react-router-dom";
+import { Redirect, Route, Switch, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import NavBar from "./Components/NavBar/NavBar";
 import Footer from "./Components/Footer/Footer";
 import { authActions } from "./store/auth";
 import "./App.css";
+import axios from "axios";
 import Loading from "./Components/Pages/Loading/Loading";
+import { premiumActions } from "./store/PremiumBtn"
 import { SnackbarProvider } from "notistack";
-const dotenv = require('dotenv');
+const dotenv = require("dotenv");
 dotenv.config();
 
 const Welcome = React.lazy(() =>
@@ -28,8 +30,40 @@ const LoginPage = React.lazy(() =>
 
 function App() {
   const dispatch = useDispatch();
+  const history = useHistory();
   const login = useSelector((state) => state.auth.isAuthenticated);
   const darkMode = useSelector((state) => state.darkMode.isDarkMode);
+  const token = localStorage.getItem("JWTTOKEN");
+
+  const userFetch = async () => {
+    if (login) {
+      const res = await axios.get(
+        "http://localhost:7777/auth/user/api/verify",
+        
+        { headers: { Authorization: token } }
+      );
+      console.log(res);
+      if(res.data.response.isPreminum){
+        console.log("inside")
+        dispatch(premiumActions.activatePremium()); 
+      }
+      if (
+        res.data.response.name &&
+        res.data.response.name === "TokenExpiredError" ||
+        res.data.response.name === "JsonWebTokenError"
+      ) {
+        localStorage.setItem("JWTTOKEN", "");
+        localStorage.setItem("userID", "");
+        localStorage.setItem("Email", "");
+
+        dispatch(authActions.logout());
+        history.replace("/auth");
+      }
+    }
+  };
+  useEffect(() => {
+    userFetch();
+  }, [token,login]);
 
   useEffect(() => {
     dispatch(authActions.checker());
