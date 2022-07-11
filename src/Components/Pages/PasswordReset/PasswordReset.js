@@ -26,8 +26,10 @@ const PasswordReset = () => {
         try{
            const response = await axios.post('http://localhost:7777/auth/user/forgotpassword', { email: enteredEmail})
            setAlert(response.data);
-          if (response.data.response) {
-            history.replace('/auth');
+           console.log(response.data)
+          if (response.data.url) {
+            // history.replace('/auth');
+            window.open(response.data.url, '_blank', 'noopener,noreferrer');
            }
            setLoading(false);
         }catch(err){
