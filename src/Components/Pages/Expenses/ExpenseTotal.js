@@ -3,17 +3,27 @@ import { useDispatch, useSelector } from "react-redux";
 import { premiumActions } from "../../../store/PremiumBtn";
 import "./ExpenseTotal.css";
 import axios from "axios";
+import { useSnackbar } from "notistack";
 
 const ExpenseTotal = () => {
   const items = useSelector((state) => state.itemsData.itemList);
   const isPremium = useSelector((state) => state.premium.isPremium);
   const pActive = useSelector((state) => state.premium.preminumValue);
   const dispatch = useDispatch();
+  const { enqueueSnackbar } = useSnackbar();
   let totalAmount = 0;
 
+  const setAlert = (response) => {
+    enqueueSnackbar(response.message, {
+      variant: response.type === 1 ? "success" : "error",
+      anchorOrigin: { vertical: "bottom", horizontal: "right" },
+      //   preventDuplicate: true,
+    });
+  };
+
   const token = localStorage.getItem("JWTTOKEN");
-  const userName = localStorage.getItem('username');
-  const userEmail = localStorage.getItem('email');
+  const userName = localStorage.getItem("username");
+  const userEmail = localStorage.getItem("email");
 
   items.map((element) => {
     totalAmount += Number(element.amount);
@@ -27,11 +37,10 @@ const ExpenseTotal = () => {
 
   const activatePreminum = () => {
     console.log("activate");
-    dispatch(premiumActions.activatePremium()); 
+    dispatch(premiumActions.activatePremium());
   };
 
   const csvData = [...items];
-
 
   //RazorPay
   function loadScript(src) {
@@ -54,14 +63,18 @@ const ExpenseTotal = () => {
     );
 
     if (!res) {
-      alert("Razorpay SDK failed to load. Are you online?");
+      setAlert({message: "Razorpay SDK failed to load. Are you online?" , type: 0})
       return;
     }
 
-    const result = await axios.post("http://localhost:7777/auth/api/payment",'',{ headers: { Authorization: token } });
+    const result = await axios.post(
+      "http://localhost:7777/auth/api/payment",
+      "",
+      { headers: { Authorization: token } }
+    );
 
     if (!result) {
-      alert("Server error. Are you online?");
+      setAlert({message: "Server error. Are you online?" , type: 0})
       return;
     }
 
@@ -88,8 +101,8 @@ const ExpenseTotal = () => {
           data,
           { headers: { Authorization: token } }
         );
-        activatePreminum()
-        alert(result.data.msg);
+        activatePreminum();
+        setAlert({message: result.data.msg , type: 1})
       },
       prefill: {
         name: userName,
@@ -116,11 +129,15 @@ const ExpenseTotal = () => {
       <div className="amountdiv">
         <label>{totalAmount}.00 </label>
       </div>
-      {true && (
+      {isPremium ? (
         <div className="preminumDiv">
           <button className="preminumBTN" onClick={displayRazorpay}>
-            {false ? "Premium Button." : "Buy Premium Features"}
+            Activate Premium Features
           </button>
+        </div>
+      ) : (
+        <div className="preminumDiv">
+          <button className="preminumBTN">Premium Member</button>
         </div>
       )}
 
@@ -128,7 +145,7 @@ const ExpenseTotal = () => {
         <div className="downloadBTnDiv">
           <CSVLink data={csvData}>
             <button className="downloadBTn"> 🡇 Download file</button>
-          </CSVLink>{" "}
+          </CSVLink>
         </div>
       )}
     </div>
