@@ -39,15 +39,15 @@ console.log(ispremium)
 
       <div className="subDivvP">
         <NavLink to="/expenses" className="nammeclass">
-          Products
+          Expenses
         </NavLink>
       </div>
 
-      <div className="subDivvA">
-        <NavLink to="/about" className="nammeclass">
-          About us
+      {ispremium && <div className="subDivvA">
+        <NavLink to="/report" className="nammeclass">
+          Report
         </NavLink>
-      </div>
+      </div>}
       {ispremium && <div className="subDivvL">
         <NavLink to="/leadership" className="nammeclass">
           Leadership

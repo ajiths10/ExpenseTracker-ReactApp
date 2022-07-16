@@ -10,6 +10,7 @@ import Loading from "./Components/Pages/Loading/Loading";
 import { premiumActions } from "./store/PremiumBtn"
 import { SnackbarProvider } from "notistack";
 import Leadership from "./Components/Pages/Leadership";
+import Report from "./Components/Pages/Report";
 const dotenv = require("dotenv");
 dotenv.config();
 
@@ -100,6 +101,12 @@ function App() {
               {login && (
                 <Route path="/leadership" exact>
                   <Leadership />
+                </Route>
+              )}
+
+              {login && (
+                <Route path="/Report" exact>
+                  <Report />
                 </Route>
               )}
 
