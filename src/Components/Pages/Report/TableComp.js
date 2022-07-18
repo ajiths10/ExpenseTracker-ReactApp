@@ -6,31 +6,26 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import TableBodyComp from "./TableBody";
 
 const TableComp = (props) => {
+ const { TableValues } = props;
+ 
   return (
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 500 }} aria-label="simple table">
+      <Table sx={{ minWidth: 500 }} aria-label="a dense table">
         <TableHead>
           <TableRow>
-            <TableCell>Date</TableCell>
-            <TableCell align="right">Description</TableCell>
-            <TableCell align="right">Category</TableCell>
-            <TableCell align="right">Expense</TableCell>
+            <TableCell>{TableValues.one}</TableCell>
+            <TableCell align="right">{TableValues.two}</TableCell>
+            <TableCell align="right">{TableValues.three}</TableCell>
+            <TableCell align="right">{TableValues.four}</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          <TableRow
-            key={1}
-            sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-          >
-            <TableCell component="th" scope="row">
-              20/01/2022
-            </TableCell>
-            <TableCell align="right">Bike</TableCell>
-            <TableCell align="right">Petrol</TableCell>
-            <TableCell align="right">200</TableCell>
-          </TableRow>
+          {props.expenseList.map((item) => {
+            return <TableBodyComp item={item}/>;
+          })}
         </TableBody>
       </Table>
     </TableContainer>

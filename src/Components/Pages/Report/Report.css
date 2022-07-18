@@ -25,3 +25,6 @@
     align-items: center;
     flex-flow: column;  
 }
+.table-container{
+    margin: 1rem;
+}

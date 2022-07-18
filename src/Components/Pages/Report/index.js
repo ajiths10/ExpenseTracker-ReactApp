@@ -1,11 +1,41 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Card from "../../../UI/Card";
 import "./Report.css";
 import TableComp from "./TableComp";
 import moment from "moment";
+import axios from "axios";
 
 const Report = () => {
+  const [expenseList, setExpenseList] = useState([]);
     const date = moment().format('DD-MM-YYYY')
+    const token = localStorage.getItem("JWTTOKEN");
+
+    const expenseTableValues = {
+      one: "Date",
+      two: "Description",
+      three: "Category",
+      four: "Expense"
+    }
+    const yealyTableValues = {
+      one: "Month",
+      two: "Income",
+      three: "Expenses",
+      four: "Savings"
+    }
+
+    const fetchReport = async() => {
+      try{
+        const response = await axios.post("http://localhost:7777/auth/api/report/expense",'',  { headers: { Authorization: token } });
+        console.log(response.data.response)
+        setExpenseList(response.data.response)
+      } catch (err){
+        console.log(err)
+      }
+    }
+useEffect(()=>{
+  fetchReport();
+},[])
+
   return (
     <div className="image-container">
       <div className="heading-container">
@@ -20,16 +50,16 @@ const Report = () => {
            <h3>2022</h3>
            <lable>July 2022</lable> 
         </div>
-        <div>
-            <TableComp />
+        <div className="table-container">
+            <TableComp expenseList={expenseList} TableValues={expenseTableValues}/>
         </div>
       </Card>
       <Card>
       <div className="year-container">
            <h3>Yearly Report</h3>
         </div>
-        <div>
-            <TableComp />
+        <div className="table-container">
+            <TableComp expenseList={[]} TableValues={yealyTableValues}/>
         </div>
       </Card>
     </div>
