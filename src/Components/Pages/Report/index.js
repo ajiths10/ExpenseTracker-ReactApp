@@ -10,18 +10,8 @@ const Report = () => {
     const date = moment().format('DD-MM-YYYY')
     const token = localStorage.getItem("JWTTOKEN");
 
-    const expenseTableValues = {
-      one: "Date",
-      two: "Description",
-      three: "Category",
-      four: "Expense"
-    }
-    const yealyTableValues = {
-      one: "Month",
-      two: "Income",
-      three: "Expenses",
-      four: "Savings"
-    }
+    const expenseTableValues = ['Date',"Description","Category","Expense"] 
+    const yealyTableValues = ["Month", "Income", "Expenses", "Savings"] 
 
     const fetchReport = async() => {
       try{
