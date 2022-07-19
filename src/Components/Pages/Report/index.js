@@ -33,7 +33,7 @@ useEffect(()=>{
       </div>
       <div className="dateinfo">
       <label>{date}</label>
-      <label>{}</label>
+      <button className="reportDownloadBTn"> 🡇 Download file</button>
       </div>
       <Card>
         <div className="year-container">
