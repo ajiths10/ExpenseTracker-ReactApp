@@ -7,24 +7,40 @@ import axios from "axios";
 
 const Report = () => {
   const [expenseList, setExpenseList] = useState([]);
-    const date = moment().format('DD-MM-YYYY')
-    const token = localStorage.getItem("JWTTOKEN");
+  const date = moment().format("DD-MM-YYYY");
+  const token = localStorage.getItem("JWTTOKEN");
 
-    const expenseTableValues = ['Date',"Description","Category","Expense"] 
-    const yealyTableValues = ["Month", "Income", "Expenses", "Savings"] 
+  const expenseTableValues = ["Date", "Description", "Category", "Expense"];
+  const yealyTableValues = ["Month", "Income", "Expenses", "Savings"];
 
-    const fetchReport = async() => {
-      try{
-        const response = await axios.post("http://localhost:7777/auth/api/report/expense",'',  { headers: { Authorization: token } });
-        console.log(response.data.response)
-        setExpenseList(response.data.response)
-      } catch (err){
-        console.log(err)
-      }
+  const fetchReport = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:7777/auth/api/report/expense",
+        "",
+        { headers: { Authorization: token } }
+      );
+      console.log(response.data.response);
+      setExpenseList(response.data.response);
+    } catch (err) {
+      console.log(err);
     }
-useEffect(()=>{
-  fetchReport();
-},[])
+  };
+  useEffect(() => {
+    fetchReport();
+  }, []);
+
+  const downloadHandler = async (e) => {
+    try {
+      const response = await axios.get(
+        "http://localhost:7777/auth/api/report/download",
+        { headers: { Authorization: token } }
+      );
+      console.log(response.data.response);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <div className="image-container">
@@ -32,24 +48,30 @@ useEffect(()=>{
         <h1>Day to Day Expenses</h1>
       </div>
       <div className="dateinfo">
-      <label>{date}</label>
-      <button className="reportDownloadBTn"> 🡇 Download file</button>
+        <label>{date}</label>
+        <button className="reportDownloadBTn" onClick={downloadHandler}>
+          {" "}
+          🡇 Download file
+        </button>
       </div>
       <Card>
         <div className="year-container">
-           <h3>2022</h3>
-           <lable>July 2022</lable> 
+          <h3>2022</h3>
+          <lable>July 2022</lable>
         </div>
         <div className="table-container">
-            <TableComp expenseList={expenseList} TableValues={expenseTableValues}/>
+          <TableComp
+            expenseList={expenseList}
+            TableValues={expenseTableValues}
+          />
         </div>
       </Card>
       <Card>
-      <div className="year-container">
-           <h3>Yearly Report</h3>
+        <div className="year-container">
+          <h3>Yearly Report</h3>
         </div>
         <div className="table-container">
-            <TableComp expenseList={[]} TableValues={yealyTableValues}/>
+          <TableComp expenseList={[]} TableValues={yealyTableValues} />
         </div>
       </Card>
     </div>
