@@ -37,6 +37,12 @@ const Report = () => {
         { headers: { Authorization: token } }
       );
       console.log(response.data.response);
+      if (response.data.type === 1) {
+        var a = document.createElement("a");
+        a.href = response.data.response;
+        a.download = "myexpenses.csv";
+        a.click();
+      }
     } catch (err) {
       console.log(err);
     }
