@@ -7,21 +7,24 @@ import axios from "axios";
 
 const Report = () => {
   const [expenseList, setExpenseList] = useState([]);
+  const [ReportList, setReportList] = useState([]);
   const date = moment().format("DD-MM-YYYY");
   const token = localStorage.getItem("JWTTOKEN");
 
   const expenseTableValues = ["Date", "Description", "Category", "Expense"];
   const yealyTableValues = ["Month", "Income", "Expenses", "Savings"];
+  const ReportTableValues = ["Date", "FileName", "DownloadLink"];
 
   const fetchReport = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:7777/auth/api/report/expense",
+        "http://localhost:7777/auth/api/report/all",
         "",
         { headers: { Authorization: token } }
       );
       console.log(response.data.response);
-      setExpenseList(response.data.response);
+      setExpenseList(response.data.response.ExpensesList);
+      setReportList(response.data.response.ReportFileUrl)
     } catch (err) {
       console.log(err);
     }
@@ -78,6 +81,14 @@ const Report = () => {
         </div>
         <div className="table-container">
           <TableComp expenseList={[]} TableValues={yealyTableValues} />
+        </div>
+      </Card>
+      <Card>
+        <div className="year-container">
+          <h3>Downloaded Reports</h3>
+        </div>
+        <div className="table-container">
+          <TableComp expenseList={ReportList} TableValues={ReportTableValues} />
         </div>
       </Card>
     </div>
