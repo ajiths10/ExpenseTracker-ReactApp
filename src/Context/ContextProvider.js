@@ -23,11 +23,13 @@ const ContextProvider = (props) => {
   };
 
   //fetch data from bankend
-  const autoreloadExpenses = async (value) => {
+  const autoreloadExpenses = async (value, rows) => {
     const userId = localStorage.getItem("userID");
+    const rowsPerPage = { rowsPerPage: rows, page: value };
     try {
-      const res = await axios.get(
-        `http://localhost:7777/auth/api/userexpenses?page=${value}`,
+      const res = await axios.post(
+        `http://localhost:7777/auth/api/userexpenses`,
+        rowsPerPage,
         { headers: { Authorization: token } }
       );
       const data = res.data.response.userExpenses.rows;
@@ -50,10 +52,15 @@ const ContextProvider = (props) => {
       console.log(`Some error ${err}`);
     }
   };
-  useEffect(() => {
-    autoreloadExpenses(1);
-  }, [token, login]);
 
+  useEffect(() => {
+    const fetchedRows = localStorage.getItem("rowsPerPage");
+    if (fetchedRows) {
+      autoreloadExpenses(1, fetchedRows);
+    } else {
+      autoreloadExpenses(1, 10);
+    }
+  }, [token, login]);
   //for calculate total Amount
 
   const contextData = {
