@@ -1,19 +1,22 @@
-import { useDispatch ,useSelector } from "react-redux";
+import { useContext } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import ExpensesForm from "./ExpensesForm";
 import Card from "../../../UI/Card";
 import ExpensesList from "./ExpensesList";
 import "./Expenses.css";
 import ExpenseTotal from "./ExpenseTotal";
 import { itemsAction } from "../../../store/fetchData";
+import Context from "../../../Context/Context";
 
 const Expenses = () => {
   const dispatch = useDispatch();
-  const itemsX = useSelector(state=> state.itemsData.itemList);
-
+  const paginationFetch = useContext(Context);
+  const { forReload } = paginationFetch;
+  const itemsX = useSelector((state) => state.itemsData.itemList);
+  const pagination = useSelector((state) => state.pagination.expensePagination);
 
   const itemsList = itemsX.map((element) => {
     return (
-        
       <ExpensesList
         money={element.amount}
         description={element.description}
@@ -21,25 +24,42 @@ const Expenses = () => {
         id={element.id}
         key={element.id}
       />
-      
     );
   });
 
-
+  const nextProducts = () => {
+    forReload(pagination.nextPage);
+  };
+  const previousProducts = () => {
+    forReload(pagination.previousPage);
+  };
 
   return (
     <div className="expensesMaindiv">
-        <div className="expensesheading">
+      <div className="expensesheading">
         <h1> Expense Tracker</h1>
-        </div>
+      </div>
       <Card>
-       <ExpenseTotal />
+        <ExpenseTotal />
       </Card>
 
       <Card>
-        <ExpensesForm onClick={''} />
+        <ExpensesForm onClick={""} />
       </Card>
-      <Card>{itemsList}</Card>
+      <Card>
+        <>{itemsList}</>
+        <div className="pagination-container">
+          <button className="paginationBtn" onClick={previousProducts}>
+            {"<"}
+          </button>
+          <button className="paginationBtn">
+            {pagination?.currentPage ? pagination.currentPage : 0}
+          </button>
+          <button className="paginationBtn" onClick={nextProducts}>
+            {">"}
+          </button>
+        </div>
+      </Card>
     </div>
   );
 };

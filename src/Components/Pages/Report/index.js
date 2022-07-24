@@ -8,6 +8,7 @@ import axios from "axios";
 const Report = () => {
   const [expenseList, setExpenseList] = useState([]);
   const [ReportList, setReportList] = useState([]);
+  const [TotaltList, setTotalList] = useState([]);
   const date = moment().format("DD-MM-YYYY");
   const token = localStorage.getItem("JWTTOKEN");
 
@@ -80,7 +81,7 @@ const Report = () => {
           <h3>Yearly Report</h3>
         </div>
         <div className="table-container">
-          <TableComp expenseList={[]} TableValues={yealyTableValues} />
+          <TableComp expenseList={TotaltList} TableValues={yealyTableValues} />
         </div>
       </Card>
       <Card>
