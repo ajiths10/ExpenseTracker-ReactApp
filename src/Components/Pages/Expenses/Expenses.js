@@ -49,15 +49,19 @@ const Expenses = () => {
       <Card>
         <>{itemsList}</>
         <div className="pagination-container">
-          <button className="paginationBtn" onClick={previousProducts}>
-            {"<"}
-          </button>
+          {pagination?.previousPage ? (
+            <button className="paginationBtn" onClick={previousProducts}>
+              {"<"}
+            </button>
+          ) : null}
           <button className="paginationBtn">
             {pagination?.currentPage ? pagination.currentPage : 0}
           </button>
-          <button className="paginationBtn" onClick={nextProducts}>
-            {">"}
-          </button>
+          {pagination?.nextPage ? (
+            <button className="paginationBtn" onClick={nextProducts}>
+              {">"}
+            </button>
+          ) : null}
         </div>
       </Card>
     </div>
