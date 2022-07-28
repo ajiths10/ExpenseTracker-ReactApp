@@ -9,9 +9,9 @@ const ExpenseTotal = () => {
   const items = useSelector((state) => state.itemsData.itemList);
   const isPremium = useSelector((state) => state.premium.isPremium);
   const pActive = useSelector((state) => state.premium.preminumValue);
+  const pagination = useSelector((state) => state.pagination.expensePagination);
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
-  let totalAmount = 0;
 
   const setAlert = (response) => {
     enqueueSnackbar(response.message, {
@@ -25,9 +25,6 @@ const ExpenseTotal = () => {
   const userName = localStorage.getItem("username");
   const userEmail = localStorage.getItem("email");
 
-  items.map((element) => {
-    totalAmount += Number(element.amount);
-  });
 
   // if () {
   //   dispatch(premiumActions.PremiumBtnActive());
@@ -127,7 +124,7 @@ const ExpenseTotal = () => {
         <h2>Total Expenses</h2>
       </div>
       <div className="amountdiv">
-        <label>{totalAmount}.00 </label>
+        <label>{pagination.TotalAmout} </label>
       </div>
       {isPremium ? (
         <div className="preminumDiv">
