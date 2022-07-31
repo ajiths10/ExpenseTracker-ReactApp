@@ -40,7 +40,7 @@ const ExpensesForm = (props) => {
     if (moneyRef.current.value !== "" && descriptionRef.current.value !== "") {
       try {
         const res = await axios.post(
-          `http://localhost:7777/auth/api/addexpense`,
+          `http://3.86.80.104:7777/auth/api/addexpense`,
           data,
           { headers: { Authorization: token } }
         );

@@ -19,7 +19,7 @@ const Report = () => {
   const fetchReport = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:7777/auth/api/report/all",
+        "http://3.86.80.104:7777/auth/api/report/all",
         "",
         { headers: { Authorization: token } }
       );
@@ -37,7 +37,7 @@ const Report = () => {
   const downloadHandler = async (e) => {
     try {
       const response = await axios.get(
-        "http://localhost:7777/auth/api/report/download",
+        "http://3.86.80.104:7777/auth/api/report/download",
         { headers: { Authorization: token } }
       );
       console.log(response.data.response);

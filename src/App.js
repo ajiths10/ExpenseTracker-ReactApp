@@ -40,7 +40,7 @@ function App() {
   const userFetch = async () => {
     if (login) {
       const res = await axios.get(
-        "http://localhost:7777/auth/user/api/verify",
+        "http://3.86.80.104:7777/auth/user/api/verify",
         
         { headers: { Authorization: token } }
       );

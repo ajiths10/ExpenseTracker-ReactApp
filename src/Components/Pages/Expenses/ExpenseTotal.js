@@ -65,7 +65,7 @@ const ExpenseTotal = () => {
     }
 
     const result = await axios.post(
-      "http://localhost:7777/auth/api/payment",
+      "http://3.86.80.104:7777/auth/api/payment",
       "",
       { headers: { Authorization: token } }
     );
@@ -94,7 +94,7 @@ const ExpenseTotal = () => {
         };
 
         const result = await axios.post(
-          "http://localhost:7777/auth/api/payment/sucess",
+          "http://3.86.80.104:7777/auth/api/payment/sucess",
           data,
           { headers: { Authorization: token } }
         );

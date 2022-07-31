@@ -55,7 +55,7 @@ const LoginPage = () => {
       ) {
         try {
           const response = await axios.post(
-            "http://localhost:7777/auth/user/login",
+            "http://3.86.80.104:7777/auth/user/login",
             reqBody
           );
           console.log(response);
@@ -95,7 +95,7 @@ const LoginPage = () => {
       ) {
         try {
           const response = await axios.post(
-            "http://localhost:7777/auth/user/signup",
+            "http://3.86.80.104:7777/auth/user/signup",
             reqBody
           );
           console.log(response);

@@ -28,7 +28,7 @@ const ContextProvider = (props) => {
     const rowsPerPage = { rowsPerPage: rows, page: value };
     try {
       const res = await axios.post(
-        `http://localhost:7777/auth/api/userexpenses`,
+        `http://3.86.80.104:7777/auth/api/userexpenses`,
         rowsPerPage,
         { headers: { Authorization: token } }
       );
