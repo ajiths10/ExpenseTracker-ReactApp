@@ -56,7 +56,7 @@ const Expenses = () => {
       </Card>
       <Card>
         <>
-          {itemsX.map((element) => {
+          {itemsX.length?  itemsX.map((element) => {
             return (
               <ExpensesList
                 money={element.amount}
@@ -66,7 +66,7 @@ const Expenses = () => {
                 key={element.id}
               />
             );
-          })}
+          }): <h3 className="noExpenseContainer">No Expenses</h3>}
         </>
         <div></div>
         <div className="pagination-container">

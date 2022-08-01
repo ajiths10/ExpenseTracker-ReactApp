@@ -39,3 +39,9 @@
   background-color: rgb(108, 33, 177);
   color: aliceblue;
 }
+.noExpenseContainer{
+  color: gray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
