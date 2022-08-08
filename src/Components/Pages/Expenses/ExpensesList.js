@@ -2,9 +2,19 @@ import { useContext } from "react";
 import axios from "axios";
 import Context from "../../../Context/Context";
 import "./ExpensesList.css";
+import { useSnackbar } from "notistack";
 
 const ExpensesList = (props) => {
   const CTX = useContext(Context);
+  const { enqueueSnackbar } = useSnackbar();
+
+  const setAlert = (response) => {
+    enqueueSnackbar(response.message, {
+      variant: response.type === 1 ? "success" : "error",
+      anchorOrigin: { vertical: "bottom", horizontal: "right" },
+      //   preventDuplicate: true,
+    });
+  };
 
   console.log("hiiiii", props);
   const deleteBtnHandler = async (event) => {
@@ -18,6 +28,7 @@ const ExpensesList = (props) => {
         { headers: { Authorization: token } }
       );
       console.log(res);
+      setAlert(res.data);
       CTX.forReload();
     } catch (err) {
       console.log(`Some error ${err}`);
