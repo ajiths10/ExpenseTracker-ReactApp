@@ -26,7 +26,7 @@ const ExpensesForm = (props) => {
     });
   };
 
-  const buttonHandler = async (event) => {
+  const submitHandler = async (event) => {
     event.preventDefault();
     setLoading(true);
     const data = {
@@ -56,8 +56,9 @@ const ExpensesForm = (props) => {
 
           dispatch(authActions.logout());
           history.replace("/auth");
-        }else{
-            dispatch(itemsAction.newExpenses(data));
+        } else {
+          dispatch(itemsAction.newExpenses(data));
+          CTX.forReload();
         }
       } catch (err) {
         console.log(`Some error ${err}`);
@@ -147,7 +148,7 @@ const ExpensesForm = (props) => {
         </div>
         <div className="submitdivv">
           {!CTX.isEditOn && (
-            <button onClick={buttonHandler} className="submitdivbtn">
+            <button onClick={submitHandler} className="submitdivbtn">
               {" "}
               {isLoading ? "Loading..." : "Submit"}{" "}
             </button>

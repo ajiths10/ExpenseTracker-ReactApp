@@ -25,7 +25,11 @@ const ContextProvider = (props) => {
   //fetch data from bankend
   const autoreloadExpenses = async (value, rows) => {
     const userId = localStorage.getItem("userID");
-    const rowsPerPage = { rowsPerPage: rows? rows: 10, page: value? value : 1 };
+    const rowlocal = localStorage.getItem("rowsPerPage");
+    const rowsPerPage = {
+      rowsPerPage: rows ? rows : rowlocal ? rowlocal : 10,
+      page: value ? value : 1,
+    };
     try {
       const res = await axios.post(
         `http://localhost:7777/auth/api/userexpenses`,
