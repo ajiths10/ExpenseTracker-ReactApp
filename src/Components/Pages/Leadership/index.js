@@ -10,7 +10,7 @@ const Leadership = () => {
     const token = localStorage.getItem("JWTTOKEN");
 
 const fetchUsers = async() => {
-    const response = await axios.get("http://3.86.80.104:7777/auth/api/getallusers", { headers: { Authorization: token } })
+    const response = await axios.get("http://localhost:7777/auth/api/getallusers", { headers: { Authorization: token } })
     console.log(response);
     setUserArray(response.data.response)
 }

@@ -9,7 +9,7 @@ const { fetchExpenseHandler } = props
         e.stopPropagation();
         console.log(props.user.id )
         const data = { id: props.user.id}
-    const response = await axios.post("http://3.86.80.104:7777/auth/api/alluser/expenses",data, { headers: { Authorization: token } })
+    const response = await axios.post("http://localhost:7777/auth/api/alluser/expenses",data, { headers: { Authorization: token } })
        console.log(response);
        fetchExpenseHandler(response.data.response)
     }

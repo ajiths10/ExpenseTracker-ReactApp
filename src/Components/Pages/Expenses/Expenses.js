@@ -41,6 +41,7 @@ const Expenses = () => {
     localStorage.setItem("rowsPerPage", event.target.value);
     forReload(1, event.target.value);
   };
+  console.log('hiiiii',itemsX)
 
   return (
     <div className="expensesMaindiv">

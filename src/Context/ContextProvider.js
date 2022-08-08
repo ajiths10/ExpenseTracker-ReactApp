@@ -25,10 +25,10 @@ const ContextProvider = (props) => {
   //fetch data from bankend
   const autoreloadExpenses = async (value, rows) => {
     const userId = localStorage.getItem("userID");
-    const rowsPerPage = { rowsPerPage: rows, page: value };
+    const rowsPerPage = { rowsPerPage: rows? rows: 10, page: value? value : 1 };
     try {
       const res = await axios.post(
-        `http://3.86.80.104:7777/auth/api/userexpenses`,
+        `http://localhost:7777/auth/api/userexpenses`,
         rowsPerPage,
         { headers: { Authorization: token } }
       );
@@ -36,12 +36,13 @@ const ContextProvider = (props) => {
       console.log(data);
       let arr = [];
       let index = 0;
+
       for (const key in data) {
         arr[index] = {
           category: data[key].category,
           description: data[key].description,
           amount: data[key].amount,
-          id: key,
+          id: data[key].id,
         };
         index++;
       }

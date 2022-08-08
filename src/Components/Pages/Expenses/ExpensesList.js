@@ -6,14 +6,18 @@ import "./ExpensesList.css";
 const ExpensesList = (props) => {
   const CTX = useContext(Context);
 
+  console.log("hiiiii", props);
   const deleteBtnHandler = async (event) => {
     const userId = localStorage.getItem("userID");
+    const token = localStorage.getItem("JWTTOKEN");
+    let data = { expenseId: props.id };
     try {
-      const res = await axios.delete(
-        `https://expensetracker-userdata-default-rtdb.firebaseio.com/expenses/${userId}/${props.id}.json`
+      const res = await axios.post(
+        `http://localhost:7777/auth/api/deleteexpense`,
+        data,
+        { headers: { Authorization: token } }
       );
       console.log(res);
-      console.log("Expense successfuly deleted");
       CTX.forReload();
     } catch (err) {
       console.log(`Some error ${err}`);
