@@ -98,6 +98,9 @@
     color: #206af6;
     text-decoration: underline;
 }
+.forgotpassword:hover{
+    cursor: pointer;
+}
 
 .signup-container{
     display: flex;
